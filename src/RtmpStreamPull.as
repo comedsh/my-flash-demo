@@ -36,7 +36,7 @@ package {
 		
 		//private var url:String = "rtmp://10.211.55.8/live";
 		
-		private var url:String = "rtmp://10.211.55.8/my-first-red5-example";
+		private var url:String = "rtmp://127.0.0.1/my-first-red5-example";
 		
 		//private var streamName:String = "myCamera";
 		
@@ -113,11 +113,11 @@ package {
 			
 			ns.client = customClient;
 			
-			video = new Video( 180, 120 );
+			video = new Video( 320, 240 );
 			
 			video.attachNetStream( ns );
 			
-			ns.play( streamName, -1, -1, false );
+			ns.play( streamName, -1, -1, true );
 			
 			addChild( video );
 			

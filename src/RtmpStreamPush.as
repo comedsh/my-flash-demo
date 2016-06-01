@@ -99,10 +99,16 @@ package {
 		
 		private function publish() : void{
 			
-			//Cam
+	
+			//cam = Camera.getCamera(); // 会获取默认的 FaceTime HD Camera..
 			
-			cam = Camera.getCamera();
-			
+			/**
+			 * 获取自定义的摄像头有两个办法
+			 * 1. 在 flash 设置里面，设置默认摄像头 ( 没试 )
+			 * 2. 通过指定摄像头在队列中的位置来获取对应的摄像头信息，可用下面的饿方法来进行判断。起始位置为 0
+			 *    trace( Camera.names ); // 两个摄像头 FaceTime HD Camera, USB2.0 PC CAMERA
+			 */
+			cam = Camera.getCamera("1"); // 获取第二个摄像头，也就是 USB2.0 PC CAMERA，记住不能输入名字，否则返回 null
 			
 			/**
 			 * public function setMode(width:int, height:int, fps:Number, favorArea:Boolean = true):void  
@@ -118,7 +124,9 @@ package {
 			 * The default value is 15, which means that every 15th frame is a keyframe. A value of 1 means that every frame is a keyframe. 
 			 * The allowed values are 1 through 300. 
 			 */
-			cam.setKeyFrameInterval(25);
+			// 表明每隔3帧，就有一个关键帧 - Key Frame，关键帧是原始帧不进行压缩，前后的帧，可以根据该帧进行预测算法等
+			// 注意，这个值不是越高越好，值越低，往往质量越好。
+			cam.setKeyFrameInterval(3); 
 			
 			/**
 			 * public function setQuality(bandwidth:int, quality:int):void  
