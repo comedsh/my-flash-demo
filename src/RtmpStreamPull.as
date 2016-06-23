@@ -38,9 +38,9 @@ package {
 		
 		private var url:String = "rtmp://127.0.0.1/my-first-red5-example";
 		
-		//private var streamName:String = "myCamera";
+		private var streamName:String = "mystream"; // LIVE
 		
-		private var streamName:String = "mystream";
+		// private var streamName:String = "h264_mp3"; // VOD
 		
 		// for fixing the error: text=Error #2095: flash.net.NetStream 无法调用回调 onMetaData, error=ReferenceError: Error #1069: 在 flash.net.NetStream 上找不到属性 onMetaData，且没有默认值
 		private var customClient:Object = new Object();
@@ -109,6 +109,10 @@ package {
 			
 			ns = new NetStream( nc );
 			
+			// 设置 buffer time 的时间为 60 秒 - 目的是为了测试 RED5 - 实现进度 6: 2016-06-11, 疑问.. 增大客户端的缓冲来避免播放卡顿的现象..
+			// 注意，如果设置缓冲时间过长，本地客户端播放等待的时间也会更长.. 
+			// ns.bufferTime = 10;  
+			
 			ns.addEventListener( NetStatusEvent.NET_STATUS, netStatusHandler );
 			
 			ns.client = customClient;
@@ -117,7 +121,8 @@ package {
 			
 			video.attachNetStream( ns );
 			
-			ns.play( streamName, -1, -1, true );
+			// -2 means live or vod
+			ns.play( streamName, -2, -1, false );
 			
 			addChild( video );
 			

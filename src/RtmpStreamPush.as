@@ -56,7 +56,7 @@ package {
 		
 		private var screen_h:int=240;
 		
-		private var url:String = "rtmp://10.211.55.8/my-first-red5-example"
+		private var url:String = "rtmp://127.0.0.1/my-first-red5-example"
 			
 		private var streamName:String = "mystream";	
 		
@@ -108,6 +108,8 @@ package {
 			 * 2. 通过指定摄像头在队列中的位置来获取对应的摄像头信息，可用下面的饿方法来进行判断。起始位置为 0
 			 *    trace( Camera.names ); // 两个摄像头 FaceTime HD Camera, USB2.0 PC CAMERA
 			 */
+			trace( Camera.names );
+			
 			cam = Camera.getCamera("1"); // 获取第二个摄像头，也就是 USB2.0 PC CAMERA，记住不能输入名字，否则返回 null
 			
 			/**
@@ -200,7 +202,7 @@ package {
 					如果您传递“appendWithGap”，则会传递关于时间协调的其他信息，以帮助服务器在动态流式处理时确定正确的转换点。
 					如果省略此参数或传递“live”，则服务器将发布实时数据而不进行录制。如果存在名称与传递给 name 参数的值相匹配的文件，则删除它。
 			*/
-			ns.publish( streamName, "live");
+			ns.publish( streamName, "record");
 		}
 		
 		
